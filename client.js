@@ -10,34 +10,59 @@ const plusIndicator = 2;
 client.connect(PORT, HOST, function() {
     console.log('CONNECTED TO: ' + HOST + ':' + PORT);
     client.write('READY');
-    console.log('Client send data : READY');
+ /*    console.log('Client send data : READY'); */
 });
 
 client.on('data', function(data) {
-   //console.log('Data from server begin : '+data);
-    
-    if(count<plusIndicator){
+
+   /*  client.write("-");
+    if(data == "KUY"){
         client.write("+");
-        console.log('Data from server begin : '+data);
-        console.log(count);
-        count++;
+        console.log('Client recv data : '+data);
     }
-    
-    else{   
-        //client.write("BYE");
-    }
-    //console.log('Data from server end: '+data);
+    */
 
-        // const rl = readline.createInterface({
-        //     input: process.stdin,
-        //     output: process.stdout
-        // });
+
+        if(data == "START"){
+            console.log('Client recv data : '+data);
+            client.write("-")
+        }
+        else if(data == "CANT MINUS"){
+            console.log('Client recv data : '+data);
+            client.write("+")
+         
+        }else if(data == "CAN MINUS"){
+            console.log('Client recv data : '+data);
+            client.write("+")
+
+        }else if(data == "PLUS MINUS CAN PLUS"){
+            console.log('Client recv data : '+data);
+            client.write("+")
+        }
+        else if(data == "PLUS MINUS CANT PLUS"){
+            console.log('Client recv data : '+data);
+            client.write("END")
+        }else if(data == "CANT END"){
+            console.log('Client recv data : '+data);
+            client.write("-")
+        }
+        else{
+            client.destroy()
+        }
+        
+
+ /*   
+    console.log('Client recv data : '+data);
+    if(data < 2){
+        console.log('Client recv data 2 : '+data);
+    } */
+   
+
+
 
     
-        // rl.question("Enter input: ", function (answer) {
-        //     client.write(answer);
-        //     rl.close();
-        // });
+
+
 });
 
  client.on('close', function(){
