@@ -5,29 +5,31 @@ var PORT = 8000;
 net.createServer((sock) => {
 
     var guess=6;
-    var count=0;
+   
     let num;
-
+    var count=0;
     sock.on('data', function (data) {
-        console.log(' Data from client : '+data + '\n');
+    
 
         if(data=='READY'){
-            sock.write('Number of Customer = ' + count );
-
-        }else if(data=='BYE'){
-            sock.destroy();
-
-        }else if(data=='+'){
-            count++;
-            console.log(count);
-        
-        }else if(data=='-'&&count>0){
-            count--;
-            console.log(count);
+            sock.write('START');
+        }else if(data=='-' && count == 0){
+            sock.write('CANT MINUS');
+        }else if(data=='-' && count != 0){
+            sock.write('CAN MINUS');
+            count --
+        }else if(data == '+' && count < 2){
+            count ++
+            sock.write('PLUS MINUS CAN PLUS');
+        }else if(data == '+' && count >= 2){
+            sock.write('PLUS MINUS CANT PLUS');
         }
-        else if(data=='k'){
-            console.log(count);
-            sock.write('Number of Customer = ' + count );
+        else if(data == 'END' && count !=  0){
+            sock.write('CANT END');
+        }
+        else if(data == 'END' && count ==  0){
+            sock.write('END');
+            sock.destroy()
         }
     });
 }).listen(PORT, HOST);
