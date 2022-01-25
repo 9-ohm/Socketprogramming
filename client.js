@@ -44,13 +44,29 @@ client.on('data', function(data) {
             client.write("END")
         }else if(data == "CANT END"){
             console.log('Client recv data : '+data);
-            client.write("-2")
+            client.write("--")
+        }
+        else if(data == "CANT END NEED MINUS"){
+            console.log('Client recv data : '+data);
+            client.write("--")
         }
         else if(data == "CAN END"){
             console.log('Client recv data : '+data);
             client.destroy()
         }
         
+
+ /*   
+    console.log('Client recv data : '+data);
+    if(data < 2){
+        console.log('Client recv data 2 : '+data);
+    } */
+   
+
+
+
+    
+
 
 });
 

@@ -27,10 +27,16 @@ net.createServer((sock) => {
         else if(data == 'END' && count !=  0){
             sock.write('CANT END');
         }
-        else if(data == '-2'){
-            count = count -2
+        else if(data == '--' && count != 0){
+            count --
+            sock.write('CANT END NEED MINUS');
+          
+        }
+        else if(data == '--' && count == 0){
+       
             sock.write('CAN END');
             sock.destroy()
+          
         }
     });
 }).listen(PORT, HOST);
