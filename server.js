@@ -27,8 +27,9 @@ net.createServer((sock) => {
         else if(data == 'END' && count !=  0){
             sock.write('CANT END');
         }
-        else if(data == 'END' && count ==  0){
-            sock.write('END');
+        else if(data == '-2'){
+            count = count -2
+            sock.write('CAN END');
             sock.destroy()
         }
     });
